@@ -1,0 +1,15 @@
+{
+  "scripts": {
+    "dev": "nodemon --exec 'docker build -t demo . && docker run --env DISCORD_TOKEN=$DISCORD_TOKEN demo'",
+    "build": "docker build -t discord-server-status-bot .",
+    "docker-push": "docker push mmmaxwwwell/discord-server-status-bot:latest",
+    "docker-delete-all": "docker stop $(docker ps -aq) && docker rm $(docker ps -aq) && docker rmi $(docker images -q)"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmmaxwwwell/discord-server-status-bot.git"
+  },
+  "dependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
