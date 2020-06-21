@@ -14,7 +14,7 @@ const updateStatus = () => {
   const memString = `${memVals[1]}/${memVals[2]}gb free/total ram`.replace('.0','')
   // console.log({ memVals , memString});
   client.user.setActivity(memString, {
-    type: "STREAMING",
+    type: "PLAYING",
     // url: "https://www.example.com"
   });
 };
