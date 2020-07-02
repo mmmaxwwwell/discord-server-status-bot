@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "dev": "nodemon --exec 'docker build -t discord-server-status-bot . && docker run --env DISCORD_TOKEN=$DISCORD_TOKEN discord-server-status-bot'",
-    "docker-build": "docker build -t discord-server-status-bot . && docker tag discord-server-status-bot mmmaxwwwell/discord-server-status-bot",
+    "dev": "nodemon -x node -r dotenv/config app/main.js",
+    "docker-build": "docker build -t mmmaxwwwell/discord-server-status-bot:latest .",
     "docker-push": "docker push mmmaxwwwell/discord-server-status-bot",
     "docker-stop-all": "docker stop $(docker ps -aq)",
     "docker-delete-all": "docker rm $(docker ps -aq) && docker rmi $(docker images -q)"
@@ -11,8 +11,10 @@
     "url": "git+https://github.com/mmmaxwwwell/discord-server-status-bot.git"
   },
   "dependencies": {
+    "discord.js": "^12.2.0",
     "dotenv": "^8.2.0",
     "gamedig": "^2.0.20",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "shelljs": "^0.8.4"
   }
 }

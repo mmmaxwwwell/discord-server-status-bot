@@ -4,7 +4,6 @@ var shell = require("shelljs");
 shell.config.silent = true;
 const Gamedig = require('gamedig');
 const servers = JSON.parse(process.env.GAMESERVERS_JSON)
-const DOCKER_CONTAINER_NAMES = process.env.DOCKER_CONTAINER_NAMES.split(',')
 
 const buildServerMessage = async (server) => {
   const {id, type, host, port, discordStatusChanelId} = server
