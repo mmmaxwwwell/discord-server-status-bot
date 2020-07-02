@@ -2,6 +2,11 @@
   "name": "app",
   "dependencies": {
     "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.4",
     "shelljs": "^0.8.4"
+  },
+  "scripts": {
+    "dev": "nodemon -x node -r dotenv/config main.js"
   }
 }
