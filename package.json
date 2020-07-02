@@ -1,7 +1,7 @@
 {
   "scripts": {
     "docker-dev": "docker build . && docker run --env-file=app/.env --rm --name discord-server-status-bot discord-server-status-bot",
-    "docker-build": "docker build .",
+    "docker-build": "docker build --tag latest .",
     "docker-push": "docker push discord-server-status-bot",
     "docker-stop-all": "docker stop $(docker ps -aq)",
     "docker-delete-all": "docker rm $(docker ps -aq) && docker rmi $(docker images -q)"
