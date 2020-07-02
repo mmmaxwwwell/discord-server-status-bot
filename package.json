@@ -1,8 +1,8 @@
 {
   "scripts": {
-    "docker-dev": "docker build . && docker run --env-file=.env --rm --name discord-server-status-bot discord-server-status-bot",
+    "docker-dev": "docker build --tag mmmaxwwwell/discord-server-status-bot:latest . && docker run --env-file=.env mmmaxwwwell/discord-server-status-bot:latest",
     "docker-build": "docker build --tag latest .",
-    "docker-push": "docker push discord-server-status-bot",
+    "docker-push": "docker push mmmaxwwwell/discord-server-status-bot:latest",
     "docker-stop-all": "docker stop $(docker ps -aq)",
     "docker-delete-all": "docker rm $(docker ps -aq) && docker rmi $(docker images -q)"
   },

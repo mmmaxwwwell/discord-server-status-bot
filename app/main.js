@@ -4,6 +4,7 @@ var shell = require("shelljs");
 shell.config.silent = true;
 const Gamedig = require('gamedig');
 const servers = JSON.parse(process.env.GAMESERVERS_JSON)
+const { setIntervalAsync } = require('set-interval-async/legacy')
 
 const buildServerMessage = async (server) => {
   const {id, type, host, port, discordStatusChanelId} = server
@@ -101,11 +102,17 @@ const updateStatus = async () => {
 };
 
 let intervalTimer;
-client.on("ready", () => {
+client.on("ready", async () => {
   console.log(`Logged in as ${client.user.tag}!`);
   console.log(`Monitoring: ${JSON.stringify(servers)}`)
-  updateStatus();
-  intervalTimer = setInterval(updateStatus, parseInt(process.env.UPDATE_INTERVAL_MS));
+  await updateStatus();
+  intervalTimer = setIntervalAsync(updateStatus, parseInt(process.env.UPDATE_INTERVAL_MS));
 });
 
-client.login(process.env.DISCORD_TOKEN);
+try{
+  console.log("starting with setIntervalAsync")
+  client.login(process.env.STATUS_BOT_DISCORD_TOKEN);
+}catch(error){
+  console.log(error)
+  process.exit()
+}
