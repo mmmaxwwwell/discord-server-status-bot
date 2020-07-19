@@ -20,7 +20,7 @@ const buildServerMessage = async (server) => {
       // console.log(err)
     })
   }catch(ex){
-    
+
   }
 
   if(!query)
@@ -131,7 +131,6 @@ let intervalTimer;
 client.on("ready", async () => {
   console.log(`Logged in as ${client.user.tag}!`);
   console.log(`Monitoring: ${JSON.stringify(servers)}`)
-  await updateStatus();
   intervalTimer = setIntervalAsync(updateStatus, parseInt(process.env.UPDATE_INTERVAL_MS));
 });
 
