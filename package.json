@@ -1,20 +1,10 @@
 {
   "scripts": {
-    "docker-dev": "docker build --tag mmmaxwwwell/discord-server-status-bot:latest . && docker run --env-file=.env mmmaxwwwell/discord-server-status-bot:latest",
-    "docker-build": "docker build --tag latest .",
-    "docker-push": "docker push mmmaxwwwell/discord-server-status-bot:latest",
-    "docker-stop-all": "docker stop $(docker ps -aq)",
-    "docker-delete-all": "docker rm $(docker ps -aq) && docker rmi $(docker images -q)"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mmmaxwwwell/discord-server-status-bot.git"
   },
   "dependencies": {
-    "discord.js": "^12.2.0",
-    "dotenv": "^8.2.0",
-    "gamedig": "^2.0.20",
-    "nodemon": "^2.0.4",
-    "shelljs": "^0.8.4"
   }
 }

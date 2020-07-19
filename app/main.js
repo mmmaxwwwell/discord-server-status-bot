@@ -7,6 +7,8 @@ const servers = JSON.parse(process.env.GAMESERVERS_JSON)
 const moment = require('moment')
 const tz = require('moment-timezone')
 const { setIntervalAsync } = require('set-interval-async/legacy')
+const hostIp = shell.exec('ip route show | awk \'/default/ {print $3}\'')
+console.log({hostIp})
 
 const buildServerMessage = async (server) => {
   const {id, type, host, port, discordStatusChanelId} = server
@@ -61,32 +63,22 @@ const buildMessage = async () => {
     // available: (parseInt(rawMemory[5]) / 1024).toFixed(1).replace('.0','')
   }
 
-  const diskRaw = shell.exec('df | grep /$').split(/\s/)
-  const disk = {
-    filesystem: diskRaw[0],
-    blocks: diskRaw[1],
-    used: (parseInt(diskRaw[2])/1024/1024).toFixed(1).replace('.0',''),
-    available: (parseInt(diskRaw[3])/1024/1024).toFixed(1).replace('.0',''),
-    usedPercent: diskRaw[5],
-    mountpoint: diskRaw[6]
-  }
-
   let message = [`:
 Resources:
   Memory: ${((parseInt(rawMemory[1]) * 100) / parseInt(rawMemory[0])).toFixed()}%
     Used:  ${memory.used}gb
     Total: ${memory.total}gb
-  Disk: ${disk.usedPercent}
-    Used:  ${disk.used}gb
-    Free:  ${disk.available}gb
   
 For more detailed stats on our servers, and quick connect links, check out:
 <#728344359422001202>
 <#728025272250794067>`]
 
   let serverMessages = []
-  for (const server of servers)
+  for (let server of servers){
+    if(server.host == 'dockerhost')
+      server.host = hostIp
     serverMessages.push(await buildServerMessage(server))
+  }
   return {message, serverMessages}
 }
 
