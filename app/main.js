@@ -70,12 +70,11 @@ Resources:
   
 For more detailed stats on our servers, and quick connect links, check out:
 ${servers.map(x => `<#${x.discordStatusChanelId}>`).join('\n')}`]
-
-
   let serverMessages = []
   for (let server of servers){
-    if(server.host == 'dockerhost')
-      server.host = hostIp
+    if(server.host == 'dockerhost'){
+      server.host = `${hostIp}`
+    }
     serverMessages.push(await buildServerMessage(server))
   }
   return {message, serverMessages}
@@ -83,7 +82,6 @@ ${servers.map(x => `<#${x.discordStatusChanelId}>`).join('\n')}`]
 
 const updateLastMessage = async (message, channelId) => {
   const channel = await client.channels.cache.get(channelId)
-  console.log({channel})
 
   let lastMessage
   let newMessage 
