@@ -11,8 +11,9 @@ const hostIp = shell.exec('ip route show | awk \'/default/ {print $3}\'')
 
 const buildServerMessage = async (server) => {
   const {id, type, host, port, discordStatusChanelId} = server
+  let query
   try{
-    const query = await Gamedig.query({
+    query = await Gamedig.query({
       type,
       host,
       port
@@ -73,9 +74,6 @@ For more detailed stats on our servers, and quick connect links, check out:
 ${servers.map(x => `<#${x.discordStatusChanelId}>`).join('\n')}`]
   let serverMessages = []
   for (let server of servers){
-    if(server.host == 'dockerhost'){
-      server.host = `${hostIp}`
-    }
     serverMessages.push(await buildServerMessage(server))
   }
   return {message, serverMessages}
