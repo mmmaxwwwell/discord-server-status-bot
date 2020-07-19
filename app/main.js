@@ -11,14 +11,17 @@ const hostIp = shell.exec('ip route show | awk \'/default/ {print $3}\'')
 
 const buildServerMessage = async (server) => {
   const {id, type, host, port, discordStatusChanelId} = server
-  
-  const query = await Gamedig.query({
-    type,
-    host,
-    port
-  }).catch((err)=>{
-    // console.log(err)
-  })
+  try{
+    const query = await Gamedig.query({
+      type,
+      host,
+      port
+    }).catch((err)=>{
+      // console.log(err)
+    })
+  }catch(ex){
+    
+  }
 
   if(!query)
     return ""
