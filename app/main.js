@@ -11,17 +11,15 @@ const hostIp = shell.exec('ip route show | awk \'/default/ {print $3}\'')
 
 const buildServerMessage = async (server) => {
   const {id, type, host, port, discordStatusChanelId} = server
-  let query
-  try{
-     query = await Gamedig.query({
-      type,
-      host,
-      port
-    })
+  
+  const query = await Gamedig.query({
+    type,
+    host,
+    port
+  }).catch((err)=>{
+    // console.log(err)
+  })
 
-  }catch(error){
-    console.log(error)
-  }
   if(!query)
     return ""
   switch (type){
@@ -87,7 +85,7 @@ const updateLastMessage = async (message, channelId) => {
   let newMessage 
 
   if(!channel){
-    console.log('channel not found')
+    console.log(`channel ${channelId} not found`)
     return
   }
 
@@ -121,8 +119,9 @@ const updateStatus = async () => {
   const infos = await buildMessage()
   let mainMessageContent = [infos.message].join('') 
   await updateLastMessage(mainMessageContent, process.env.SERVER_STATUS_CHANNEL_ID)
-  for (const gameserver of infos.serverMessages)
+  for (const gameserver of infos.serverMessages){
     await updateLastMessage(gameserver.message, gameserver.discordStatusChanelId)
+  }
 };
 
 let intervalTimer;
