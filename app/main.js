@@ -64,7 +64,7 @@ const buildMessage = async () => {
     // available: (parseInt(rawMemory[5]) / 1024).toFixed(1).replace('.0','')
   }
 
-  let message = [`💻
+  let message = [`👑
 Resources:
   Memory: ${((parseInt(rawMemory[1]) * 100) / parseInt(rawMemory[0])).toFixed()}%
     Used:  ${memory.used}gb
