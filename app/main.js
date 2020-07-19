@@ -8,7 +8,6 @@ const moment = require('moment')
 const tz = require('moment-timezone')
 const { setIntervalAsync } = require('set-interval-async/legacy')
 const hostIp = shell.exec('ip route show | awk \'/default/ {print $3}\'')
-console.log({hostIp})
 
 const buildServerMessage = async (server) => {
   const {id, type, host, port, discordStatusChanelId} = server
@@ -70,8 +69,8 @@ Resources:
     Total: ${memory.total}gb
   
 For more detailed stats on our servers, and quick connect links, check out:
-<#728344359422001202>
-<#728025272250794067>`]
+${servers.map(x => `<#${x.discordStatusChanelId}>`).join('\n')}`]
+
 
   let serverMessages = []
   for (let server of servers){
@@ -84,14 +83,25 @@ For more detailed stats on our servers, and quick connect links, check out:
 
 const updateLastMessage = async (message, channelId) => {
   const channel = await client.channels.cache.get(channelId)
+  console.log({channel})
 
   let lastMessage
-  let newMessage = false
-  try{
-    lastMessage = await channel.messages.fetch(channel.lastMessageID)
-  }catch{
-    newMessage = true
+  let newMessage 
+
+  if(!channel){
+    console.log('channel not found')
+    return
   }
+
+  if(!channel.lastMessageID)
+    newMessage = true
+  else
+    try{
+      lastMessage = await channel.messages.fetch(channel.lastMessageID)
+    }catch(ex){
+      console.error(ex)
+      newMessage = true
+    }
 
   let messageContent = message + `
 
