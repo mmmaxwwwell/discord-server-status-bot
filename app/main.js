@@ -28,7 +28,8 @@ const buildServerMessage = async (server) => {
     return ""
   switch (type){
     case '7d2d':
-      return {discordStatusChanelId, message: `${query.raw.rules.GameName}: ${query.raw.game}
+      return {discordStatusChanelId, message: `🧟🧟🧟
+      ${query.raw.rules.GameName}: ${query.raw.game}
       Players: ${query.players.length}/${query.maxplayers}
       Map: ${query.map}
       Version: ${query.raw.rules.Version}
