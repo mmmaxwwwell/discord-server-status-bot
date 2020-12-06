@@ -45,17 +45,13 @@ World Size: ${parseInt(query.raw.rules['world.size'])/1000}km
 FPS Average: ${query.raw.rules.fps_avg}
 steam://connect/${query.connect}`}
     case 'spaceengineers':
-      console.log({query})
-      console.log(query.raw.rules)
       let rawSettings = query.raw.tags.split(' ').find(e => e.includes('gamemode')).replace('gamemode', '')
-      let survival = rawSettings[0] == 'S'
-      console.log({rawSettings, survival})
       return {discordStatusChanelId, message: `🚀🌌🛰☄
 Name: ${query.name}
 Map: ${query.map}
 Players: ${query.raw.numplayers}/${query.maxplayers}
 Mods: ${query.raw.rules.mods}
-Settings: ${survival ? 'Survival' : 'Creative'} ${rawSettings.substring(1)}
+Settings: ${rawSettings[0] == 'S' ? 'Survival' : 'Creative'} ${rawSettings.substring(1)}
 steam://connect/${query.connect}`}
   }
 }
