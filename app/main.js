@@ -30,25 +30,33 @@ const buildServerMessage = async (server) => {
     case '7d2d':
       return {discordStatusChanelId, message: `🧟🧟🧟
       ${query.raw.rules.GameName}: ${query.raw.game}
-      Players: ${query.players.length}/${query.maxplayers}
-      Map: ${query.map}
-      Version: ${query.raw.rules.Version}
-      GameMode: ${query.raw.rules.GameMode}
-      steam://connect/${query.raw.rules.IP}:${query.raw.rules.Port}`}
+Players: ${query.players.length}/${query.maxplayers}
+Map: ${query.map}
+Version: ${query.raw.rules.Version}
+GameMode: ${query.raw.rules.GameMode}
+steam://connect/${query.raw.rules.IP}:${query.raw.rules.Port}`}
     case 'rust':
       const wiped = new moment(parseInt(query.raw.tags.split(',').find(x => x.startsWith('born')).replace(/\D/g,''))*1000).tz('America/New_York').format("MMMM Do YYYY, h:mm:ss a z")
       return {discordStatusChanelId, message: `${query.name}: ${query.raw.game}
-      Players: ${query.players.length}/${query.maxplayers}
-      Map: ${query.map.replace('Map','')}
-      Wiped: ${wiped}
-      World Size: ${parseInt(query.raw.rules['world.size'])/1000}km
-      FPS Average: ${query.raw.rules.fps_avg}
-      steam://connect/${query.connect}`}
+Players: ${query.players.length}/${query.maxplayers}
+Map: ${query.map.replace('Map','')}
+Wiped: ${wiped}
+World Size: ${parseInt(query.raw.rules['world.size'])/1000}km
+FPS Average: ${query.raw.rules.fps_avg}
+steam://connect/${query.connect}`}
     case 'spaceengineers':
       console.log({query})
       console.log(query.raw.rules)
-      return {discordStatusChanelId, message: `🛰🚀🌌☄
-      Players: ${query.raw.numplayers}/${query.maxplayers}`}
+      let rawSettings = query.raw.tags.split(' ').find(e => e.includes('gamemode')).replace('gamemode', '')
+      let survival = rawSettings[0] == 'S'
+      console.log({rawSettings, survival})
+      return {discordStatusChanelId, message: `🚀🌌🛰☄
+Name: ${query.name}
+Map: ${query.map}
+Players: ${query.raw.numplayers}/${query.maxplayers}
+Mods: ${query.raw.rules.mods}
+Settings: ${survival ? 'Survival' : 'Creative'} ${rawSettings.substring(1)}
+steam://connect/${query.connect}`}
   }
 }
 
