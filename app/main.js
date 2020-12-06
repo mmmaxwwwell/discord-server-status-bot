@@ -46,7 +46,9 @@ const buildServerMessage = async (server) => {
       steam://connect/${query.connect}`}
     case 'spaceengineers':
       console.log({query})
-      return {discordStatusChanelId, message: `space-engineers`}
+      console.log(query.raw.rules)
+      return {discordStatusChanelId, message: `🛰🚀🌌☄
+      Players: ${query.raw.numplayers}/${query.maxplayers}`}
   }
 }
 
