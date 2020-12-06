@@ -44,8 +44,10 @@ const buildServerMessage = async (server) => {
       World Size: ${parseInt(query.raw.rules['world.size'])/1000}km
       FPS Average: ${query.raw.rules.fps_avg}
       steam://connect/${query.connect}`}
+    case 'spaceengineers':
+      console.log({query})
+      return {discordStatusChanelId, message: `space-engineers`}
   }
-  
 }
 
 const buildMessage = async () => {
