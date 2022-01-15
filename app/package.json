@@ -8,7 +8,7 @@
     "moment-timezone": "^0.5.31",
     "nodemon": "^2.0.4",
     "set-interval-async": "^1.0.33",
-    "shelljs": "^0.8.4"
+    "shelljs": "^0.8.5"
   },
   "scripts": {
     "dev": "nodemon -x node -r dotenv/config main.js"
