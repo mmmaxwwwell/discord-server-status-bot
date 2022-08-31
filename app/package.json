@@ -5,7 +5,7 @@
     "dotenv": "^8.2.0",
     "gamedig": "^2.0.20",
     "moment": "^2.27.0",
-    "moment-timezone": "^0.5.31",
+    "moment-timezone": "^0.5.35",
     "nodemon": "^2.0.4",
     "set-interval-async": "^1.0.33",
     "shelljs": "^0.8.4"
